@@ -1,0 +1,18 @@
+{
+    "name": "manta-browser-upload",
+    "version": "0.0.0",
+    "description": "A sample webapp for uploading image files directly from a browser to Manta",
+    "author": "Mark Cavage",
+    "license": "BSD",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/mcavage/manta-browser-upload.git"
+    },
+    "dependencies": {
+        "manta": "1.0.1"
+    },
+    "scripts": {
+        "start": "node main.js"
+    },
+    "main": "main.js"
+}

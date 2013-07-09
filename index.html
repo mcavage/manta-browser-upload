@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Manta Sample WebApp</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js" language="javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" language="javascript"></script>
+  </head>
+  <body>
+    <p>Select a JPEG photo to upload</p>
+    <form enctype="multipart/form-data">
+      <input name="file" type="file" accept="image/jpeg" />
+      <input type="button" value="Upload" />
+    </form>
+    <div id="progressbar"></div>
+
+    <script language="javascript">
+      $(function() {
+          var file;
+
+          // Keep track of the user's file for when we do an upload below
+          $(':file').change(function(){
+              file = this.files[0];
+          });
+
+          $(":button").click(function () {
+              $('#progressbar').progressbar({
+                  value: 0,
+                  max: 100,
+                  enabled: true
+              });
+
+              // First we get a signed URL for the file name the user specified
+              // so we can then upload it with that name to Manta
+              var fname = file.name;
+              $.ajax({
+                  url: 'sign',
+                  type: 'POST',
+                  data: {
+                      file: fname
+                  }
+              }).done(function (signature) {
+                  // Now we go ahead and upload the entry
+                  // Note that here we're using the direct FileAPI, so we're
+                  // bypassing JQuery and "multipart/form-data".  Manta will not
+                  // process your data, at all, so what you would have without
+                  // this methodology is an object with all the HTTP framing
+                  // in it
+                  var xhr = new XMLHttpRequest();
+
+                  xhr.upload.addEventListener('progress', function (evt) {
+                      if (evt.lengthComputable) {
+                          var val = (evt.loaded / evt.total) * 100;
+                          $('#progressbar').progressbar('value', val);
+                      }
+                  });
+
+                  xhr.upload.addEventListener('load', function () {
+                      $('#progressbar').progressbar('destroy');
+                      alert(fname + ' uploaded');
+                  });
+
+                  xhr.upload.addEventListener('error', function () {
+                      $('#progressbar').progressbar('destroy');
+                      alert(fname + ' failed to upload');
+                  });
+
+                  xhr.open('PUT', signature.url, true);
+                  xhr.setRequestHeader('accept', 'application/json');
+                  xhr.setRequestHeader('access-control-allow-origin', '*');
+                  xhr.setRequestHeader('content-type', 'image/jpeg');
+                  xhr.send(file);
+
+              }).fail(function () {
+                  alert('failed to create signature for ' + fname);
+              });
+          });
+      });
+    </script>
+  </body>
+</html>

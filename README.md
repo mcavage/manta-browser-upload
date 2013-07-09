@@ -25,7 +25,7 @@ There are really two parts to this: the server and "webapp".  In this particular
 example, the webapp is a very simple single page, that does rely on JQuery.  The
 code is all commented, but the basic gist is:
 
-<pre>
+
     User -------------------- Server --------------------------Manta
      |                         |                                 |
      |---- Initial Visit ----> |                                 |
@@ -41,7 +41,6 @@ code is all commented, but the basic gist is:
      | ------------------------------ Upload to Manta ---------->|
      |                         |                                 |
      +-------------------------+---------------------------------+
-</pre>
 
 # License
 

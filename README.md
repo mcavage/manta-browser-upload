@@ -25,7 +25,7 @@ There are really two parts to this: the server and "webapp".  In this particular
 example, the webapp is a very simple single page, that does rely on JQuery.  The
 code is all commented, but the basic gist is:
 
-![Sequence Diagram](diagram.svg)
+![Sequence Diagram](https://rawgithub.com/mcavage/manta-browser-upload/master/diagram.svg)
 
 # License
 

@@ -25,22 +25,7 @@ There are really two parts to this: the server and "webapp".  In this particular
 example, the webapp is a very simple single page, that does rely on JQuery.  The
 code is all commented, but the basic gist is:
 
-
-    User -------------------- Server --------------------------Manta
-     |                         |                                 |
-     |---- Initial Visit ----> |                                 |
-     |                         |  ---- mkdir ~/stor/dropbox ---->|
-     |<---- Send HTML ----     |                                 |
-     |                         |                                 |
-     |   Select File           |                                 |
-     |                         |                                 |
-     |-- Request Signature --->|                                 |
-     |                         | ---- mkdir $session ----------->|
-     |<--- Send Signature -----|                                 |
-     |                         |                                 |
-     | ------------------------------ Upload to Manta ---------->|
-     |                         |                                 |
-     +-------------------------+---------------------------------+
+![Sequence Diagram](diagram.svg)
 
 # License
 

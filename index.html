@@ -8,9 +8,9 @@
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" language="javascript"></script>
   </head>
   <body>
-    <p>Select a JPEG photo to upload</p>
+    <p>Select a file to upload</p>
     <form enctype="multipart/form-data">
-      <input name="file" type="file" accept="image/jpeg" />
+      <input name="file" type="file" />
       <input type="button" value="Upload" />
     </form>
     <div id="progressbar"></div>
@@ -69,7 +69,7 @@
                   xhr.open('PUT', signature.url, true);
                   xhr.setRequestHeader('accept', 'application/json');
                   xhr.setRequestHeader('access-control-allow-origin', '*');
-                  xhr.setRequestHeader('content-type', 'image/jpeg');
+                  xhr.setRequestHeader('content-type', file.type);
                   xhr.send(file);
 
               }).fail(function () {
